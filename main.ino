@@ -1,8 +1,14 @@
 /* Program Note
 1.デフォルトでSDAとSCLをHIGHにする
 2.通信したい指示が来たらSDAをLOWにする。
-3.送信したい場合は送るデータ列を分解する？もしくは送信時にFIFOの先端を抜き出す
-3.SCLがLOWかどうか調べる、LOWだったら
+3.送信したい場合は送るデータ列を分解する？もしくは送信時にStringの先端を抜き出す?
+4.送信したい先頭の1文字または1数字を8bitの2進数に変換
+4.送信モード開始
+5.SCLがLOWかつhighから変化した後かを調べる
+6.上記がTrueだったらSDAのピンをHIGH or LOW操作
+7. 8bit送ったらacknowlage信号が来てるかをSDA_DETECT_PINで読む
+8. 上記がTrueだったらデータが続く限り5からを繰り返す
+9. データが尽きたら空のデータを
 */
 
 
@@ -12,6 +18,7 @@ uint8_t SCL_PIN = 3;
 uint8_t SDA_PIN = 4;
 //detect SCL clock. must connect to SCL pin.
 uint8_t SCL_DETECT_PIN = 5;
+uint8_t SDA_DETECT_PIN = 6;
 
 bool clock_flag = false;
 
